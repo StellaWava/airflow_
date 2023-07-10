@@ -67,7 +67,7 @@ Lastly, to enable seamless interaction between the functions, an S3 sensor is em
 
 Using Apache Airflow, a [DAG (Directed Acyclic Graph)](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) is created to combine and orchestrate the seven tasks involved in this workflow. Each task represents a specific function plus the s3 sensors, and the DAG ensures its sequential execution. By utilizing Apache Airflow's scheduling capabilities, the DAG can be configured to run at regular intervals. 
 
-![DAG](https://github.com/StellaWava/airflow_/assets/40366457/fcf71cbb-6fff-427c-a6f7-064845d0d30b)
+![DAG](https://github.com/StellaWava/airflow_/assets/40366457/43e3705b-aa73-4a18-9424-46ace995c2ac)
 
 
 However, considering the limitations imposed by the API requests, the DAG schedule is set to None for this project. This means that the DAG does not run automatically based on a predefined schedule. Instead, it requires manual triggering to initiate the execution.
