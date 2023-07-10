@@ -1,3 +1,5 @@
+#a demonstration of improvements that can be made to the code. This files still hangs on execution 
+
 import os
 import json
 import requests
