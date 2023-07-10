@@ -45,11 +45,11 @@ Once the recipe data is processed, it is stored in the designated stage S3 bucke
 ### Step 3: create database and load data from the stage folder
 This final step of the workflow involves the implementation of two functions. The first function is responsible for creating tables in the database, while the second function facilitates the transfer of data from the S3 bucket folder into these tables. Three distinct tables are created: "users," "recipes," and "user_recipes."
 
-The "users" table captures comprehensive user information, including the user's name, address, and description. The "recipes" table stores all relevant recipe details. Lastly, the "user_recipes" table establishes the connection between user records and recipe records, containing the user's name and the respective recipe's information.
+The "users" table captures comprehensive user information, including the user's name, address, and description. The "recipes" table stores all relevant recipe details. Lastly, the "user_recipes" table establishes the connection between user records and recipe records, containing the user's name and the respective recipe's information. Any duplicates in the table submissions are handled.
 
 It is important to note that this project relies on an airflow model/setup that does not have a PostgreSQL connection enabled. As an alternative, ElephantSQL is utilized as the database. The functions ensure the creation of the necessary tables and facilitate the movement of data from the S3 bucket folder to the respective tables in the ElephantSQL database.
 
-By completing this final step, the workflow successfully establishes a structured database environment and ensures the availability of organized user and recipe data, with the appropriate connections established between the two entities.
+By completing this final step, the workflow successfully establishes a structured database environment and ensures the availability of organized user and recipe data, with the appropriate connections established between the two entities. 
 
 		`
 		@task(dag=dag)
@@ -65,18 +65,22 @@ By completing this final step, the workflow successfully establishes a structure
 
 Lastly, to enable seamless interaction between the functions, an S3 sensor is employed to connect all the aforementioned steps. This sensor ensures that the workflow progresses smoothly by monitoring the availability of data in the S3 bucket before triggering the execution of subsequent tasks.
 
-In Apache Airflow, a [DAG (Directed Acyclic Graph)](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) is created to combine and orchestrate the seven tasks involved in this workflow. Each task represents a specific function plus the s3 sensors, and the DAG ensures its sequential execution. By utilizing Apache Airflow's scheduling capabilities, the DAG can be configured to run at regular intervals.
+Using Apache Airflow, a [DAG (Directed Acyclic Graph)](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html) is created to combine and orchestrate the seven tasks involved in this workflow. Each task represents a specific function plus the s3 sensors, and the DAG ensures its sequential execution. By utilizing Apache Airflow's scheduling capabilities, the DAG can be configured to run at regular intervals. 
+
+![DAG](https://github.com/StellaWava/airflow_/assets/40366457/fcf71cbb-6fff-427c-a6f7-064845d0d30b)
+
 
 However, considering the limitations imposed by the API requests, the DAG schedule is set to None for this project. This means that the DAG does not run automatically based on a predefined schedule. Instead, it requires manual triggering to initiate the execution.
 
 By combining the power of Apache Airflow, the S3 sensor, and the DAG, this workflow ensures a systematic and efficient execution of the ETL process, facilitating the collection, transformation, and loading of data from user platforms to the database while adhering to the limitations of the API requests.
 
 
+
 #### Notes
 1. All credentials are removed.
 2. There is room for improving the code. This is a demonstration of my understanding of batch processing with Apache Airflow. 
 
-						#### THANK YOU
+						THANK YOU
 
 
 
