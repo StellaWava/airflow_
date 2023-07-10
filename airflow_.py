@@ -20,13 +20,13 @@ default_args = {
 def request_api_callback():
     responses = []
     for _ in range(20):
-        response = requests.get('https://airflow-miniproject.onrender.com')
+        response = requests.get('https://airflow-miniproject.onrender.com') #instructor provided link
         user_ingredients = response.json()  # process request
         responses.append(user_ingredients)
     return responses  # returns a list of 20 dictionaries
 
 def upload_to_bucket():
-    s3_hook = S3Hook(aws_conn_id='conn_iam')
+    s3_hook = S3Hook(aws_conn_id='add_conn') #Specify your AWS connection ID
     bucket_name = 'insert_name'
     folder_path = 'userdata/'
     stage_folder = 'apidata/'
@@ -128,7 +128,7 @@ def create_tables(**kwargs):
         password='sjUIX4AO2__Pms2KHNVrOlGWhuXCuYCj',
         port='5432',
         host='stompd.db.elephantsql.com'
-    )
+    ) # Replace with actual credentials
     cursor = conn.cursor()
 
     try:
@@ -162,7 +162,7 @@ def upload_to_postgres(bucket_name, stage_folder, **kwargs):
     conn = psycopg2.connect(
         dbname='add_name',
         user='add_name',
-        password='sjUIX4AO2__Pms2KHNVrOlGWhuXCuYCj',
+        password='sjUIX4AO2__Pms2KHNVrOlGWhuXCuYCv',
         port='5432',
         host='stompd.db.elephantsql.com'
     )
@@ -272,7 +272,7 @@ def upload_to_postgres(bucket_name, stage_folder, **kwargs):
 
 
 with DAG(dag_id='data_s3_db', schedule_interval= None, default_args=default_args) as dag:
-    api_key = 'e50bf762dc0d495d942437a2498cb898'  # Replace with your actual Spoonacular API key
+    api_key = 'e50bf762dc0d495d942437a2498cb881'  # Replace with your actual Spoonacular API key
     bucket_name = 'insert_name'
     folder_path = 'userdata/'
     stage_folder = 'apidata/'
